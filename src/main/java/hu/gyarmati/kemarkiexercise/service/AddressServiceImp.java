@@ -74,4 +74,9 @@ public class AddressServiceImp implements AddressService {
         existingAddress.setAddressType(AddressType.valueOf(saveAndUpdateAddressDto.getAddressType()));
         return modelMapper.map(existingAddress, AddressInfoDto.class);
     }
+
+    @Override
+    public void deleteAddress(Long id) {
+
+    }
 }

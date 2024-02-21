@@ -10,8 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-import static org.springframework.http.HttpStatus.CREATED;
-import static org.springframework.http.HttpStatus.OK;
+import static org.springframework.http.HttpStatus.*;
 
 @RestController
 @RequestMapping("/api/addresses")
@@ -50,5 +49,12 @@ public class AddressController {
         log.info("Http request PUT /api/addresses/{id} with path variable: " + id + ", and body: " + saveAndUpdateAddressDto.toString());
         AddressInfoDto addressInfoDto = addressService.updateAddress(id, saveAndUpdateAddressDto);
         return new ResponseEntity<>(addressInfoDto, OK);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteAddress(@PathVariable Long id) {
+        log.info("Http request DELETE /api/addresses/{id} with path variable: " + id);
+        addressService.deleteAddress(id);
+        return new ResponseEntity<>(NO_CONTENT);
     }
 }

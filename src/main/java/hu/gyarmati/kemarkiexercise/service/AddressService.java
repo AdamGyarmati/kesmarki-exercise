@@ -16,4 +16,6 @@ public interface AddressService {
     List<AddressDetailsDto> getAllAddress();
 
     AddressInfoDto updateAddress(Long id, SaveAndUpdateAddressDto saveAndUpdateAddressDto);
+
+    void deleteAddress(Long id);
 }
