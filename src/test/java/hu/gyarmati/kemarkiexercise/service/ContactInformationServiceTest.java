@@ -19,8 +19,12 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 
+import static hu.gyarmati.kemarkiexercise.domain.ContactInformationType.EMAIL;
+import static hu.gyarmati.kemarkiexercise.domain.ContactInformationType.PHONE;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.anyLong;
@@ -55,7 +59,7 @@ public class ContactInformationServiceTest {
         contactInformation = ContactInformation.builder()
                 .id(1L)
                 .contactInfo("Info")
-                .contactInformationType(ContactInformationType.EMAIL)
+                .contactInformationType(EMAIL)
                 .build();
 
         saveAndUpdateContactInformationDto = SaveAndUpdateContactInformationDto.builder()
@@ -109,5 +113,21 @@ public class ContactInformationServiceTest {
         given(contactInformationRepository.findById(anyLong())).willReturn(Optional.empty());
 
         assertThrows(ContactInformationNotFoundByIdException.class, () -> contactInformationServiceImp.getContactInformationById(1L));
+    }
+
+    @DisplayName("Test for getContactInformation")
+    @Test
+    public void canGetAllContactInformation() {
+        doReturn(contactInformationInfoDto).when(modelMapper).map(contactInformation, ContactInformationInfoDto.class);
+
+        given(contactInformationRepository.findAll())
+                .willReturn(
+                        List.of(contactInformation,
+                                new ContactInformation(2L, "Info2", PHONE, address)));
+
+        List<ContactInformationInfoDto> contactInformationInfoDtoList =
+                contactInformationServiceImp.getAllContactInformation();
+
+        assertThat(contactInformationInfoDtoList).hasSize(2);
     }
 }
