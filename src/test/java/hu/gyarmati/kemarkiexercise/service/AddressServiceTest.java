@@ -142,7 +142,7 @@ public class AddressServiceTest {
 
     @DisplayName("Test for deleteAddress")
     @Test
-    public void canDeletePerson() {
+    public void canDeleteAddress() {
         when(addressRepository.findById(address.getId())).thenReturn(Optional.ofNullable(address));
 
         addressServiceImp.deleteAddress(address.getId());

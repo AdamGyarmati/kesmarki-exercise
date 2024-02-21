@@ -27,7 +27,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.times;
 
 @ExtendWith(MockitoExtension.class)
 public class ContactInformationServiceTest {
@@ -141,5 +142,15 @@ public class ContactInformationServiceTest {
         ContactInformationInfoDto updatedContactInformation = contactInformationServiceImp.updateContactInformation(contactInformation.getId(), saveAndUpdateContactInformationDto);
 
         assertThat(updatedContactInformation).isEqualTo(contactInformationInfoDto);
+    }
+
+    @DisplayName("Test for deleteContactInformation")
+    @Test
+    public void canDeleteContactInformation() {
+        when(contactInformationRepository.findById(address.getId())).thenReturn(Optional.ofNullable(contactInformation));
+
+        contactInformationServiceImp.deleteContactInformation(contactInformation.getId());
+
+        verify(contactInformationRepository, times(1)).delete(contactInformation);
     }
 }
