@@ -19,7 +19,7 @@ import static org.springframework.http.HttpStatus.CREATED;
 @Slf4j
 public class PersonController {
 
-    private PersonService personService;
+    private final PersonService personService;
 
     @Autowired
     public PersonController(PersonService personService) {
