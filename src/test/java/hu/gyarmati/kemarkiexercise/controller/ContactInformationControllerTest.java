@@ -2,6 +2,7 @@ package hu.gyarmati.kemarkiexercise.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import hu.gyarmati.kemarkiexercise.domain.ContactInformationType;
+import hu.gyarmati.kemarkiexercise.dto.AddressDetailsDto;
 import hu.gyarmati.kemarkiexercise.dto.ContactInformationInfoDto;
 import hu.gyarmati.kemarkiexercise.dto.PersonInfoDto;
 import hu.gyarmati.kemarkiexercise.service.ContactInformationService;
@@ -13,9 +14,14 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.util.Collections;
+
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.BDDMockito.given;
 import static org.springframework.http.HttpStatus.CREATED;
+import static org.springframework.http.HttpStatus.OK;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 
 @WebMvcTest(ContactInformationController.class)
@@ -39,5 +45,23 @@ public class ContactInformationControllerTest {
         ).andReturn().getResponse();
 
         assertThat(response.getStatus()).isEqualTo(CREATED.value());
+    }
+
+    @DisplayName("Test for getContactInformationById method")
+    @Test
+    public void canGetContactInformationById() throws Exception {
+        ContactInformationInfoDto contactInformationInfoDto = new ContactInformationInfoDto(1L, "Info", "PHONE");
+
+        given(contactInformationService.getContactInformationById(1L))
+                .willReturn(contactInformationInfoDto);
+
+        MockHttpServletResponse response = mvc.perform(
+                get("/api/contact-informations/1").accept(APPLICATION_JSON)
+        ).andReturn().getResponse();
+
+        assertThat(response.getStatus()).isEqualTo(OK.value());
+        assertThat(response.getContentAsString()).isEqualTo(
+                objectMapper.writeValueAsString(contactInformationInfoDto)
+        );
     }
 }
