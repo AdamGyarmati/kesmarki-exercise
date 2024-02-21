@@ -47,7 +47,9 @@ public class PersonServiceImp implements PersonService {
 
     @Override
     public PersonInfoDto updatePerson(Long id, SaveAndUpdatePersonDto saveAndUpdatePersonDto) {
-        return null;
+        Person person = findPersonById(id);
+        person.setName(saveAndUpdatePersonDto.getName());
+        return modelMapper.map(person, PersonInfoDto.class);
     }
 
     private Person findPersonById(Long id) {
