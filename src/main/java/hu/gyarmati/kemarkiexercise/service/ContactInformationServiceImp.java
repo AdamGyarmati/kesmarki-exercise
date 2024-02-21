@@ -37,7 +37,7 @@ public class ContactInformationServiceImp implements ContactInformationService {
     @Override
     public ContactInformationInfoDto getContactInformationById(Long id) {
         ContactInformation contactInformation = findContactInformationById(id);
-        return null;
+        return modelMapper.map(contactInformation, ContactInformationInfoDto.class);
     }
 
     private ContactInformation findContactInformationById(Long id) {
