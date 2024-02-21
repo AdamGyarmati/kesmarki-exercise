@@ -4,6 +4,7 @@ import hu.gyarmati.kemarkiexercise.domain.Person;
 import hu.gyarmati.kemarkiexercise.dto.PersonDetailsDto;
 import hu.gyarmati.kemarkiexercise.dto.PersonInfoDto;
 import hu.gyarmati.kemarkiexercise.dto.SavePersonDto;
+import hu.gyarmati.kemarkiexercise.exceptionhandling.PersonNotFoundByIdException;
 import hu.gyarmati.kemarkiexercise.repository.PersonRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -18,6 +19,8 @@ import java.util.Collections;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.doReturn;
 
@@ -84,5 +87,13 @@ public class PersonServiceTest {
         PersonDetailsDto getPersonDetailsDto = personServiceImp.getPersonById(person.getId());
 
         assertThat(getPersonDetailsDto).isNotNull();
+    }
+
+    @DisplayName("Test for getPersonById method throw PersonNotFoundException")
+    @Test
+    public void canGetPersonById_throw_PersonNotFoundException() {
+        given(personRepository.findById(anyLong())).willReturn(Optional.empty());
+
+        assertThrows(PersonNotFoundByIdException.class, () -> personServiceImp.getPersonById(1L));
     }
 }
