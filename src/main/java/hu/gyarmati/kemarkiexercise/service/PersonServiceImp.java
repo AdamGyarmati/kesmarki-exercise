@@ -1,5 +1,6 @@
 package hu.gyarmati.kemarkiexercise.service;
 
+import hu.gyarmati.kemarkiexercise.domain.Person;
 import hu.gyarmati.kemarkiexercise.dto.PersonInfoDto;
 import hu.gyarmati.kemarkiexercise.dto.SavePersonDto;
 import hu.gyarmati.kemarkiexercise.repository.PersonRepository;
@@ -22,6 +23,7 @@ public class PersonServiceImp implements PersonService {
 
     @Override
     public PersonInfoDto savePerson(SavePersonDto savePersonDto) {
-        return null;
+        Person savedperson = personRepository.save(modelMapper.map(savePersonDto, Person.class));
+        return modelMapper.map(savedperson, PersonInfoDto.class);
     }
 }
