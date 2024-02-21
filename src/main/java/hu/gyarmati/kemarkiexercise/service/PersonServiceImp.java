@@ -1,5 +1,6 @@
 package hu.gyarmati.kemarkiexercise.service;
 
+import hu.gyarmati.kemarkiexercise.domain.AddressType;
 import hu.gyarmati.kemarkiexercise.domain.Person;
 import hu.gyarmati.kemarkiexercise.dto.PersonDetailsDto;
 import hu.gyarmati.kemarkiexercise.dto.PersonInfoDto;
@@ -61,5 +62,10 @@ public class PersonServiceImp implements PersonService {
     @Override
     public Person findPersonById(Long id) {
         return personRepository.findById(id).orElseThrow(() -> new PersonNotFoundByIdException(id));
+    }
+
+    @Override
+    public Person checkPersonByAddressTypeAndNumberOfAddressType(AddressType addressType, Long personId) {
+        return personRepository.checkPersonByAddressTypeAndNumberOfAddressType(addressType, personId);
     }
 }

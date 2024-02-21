@@ -1,6 +1,7 @@
 package hu.gyarmati.kemarkiexercise.service;
 
 import hu.gyarmati.kemarkiexercise.domain.Address;
+import hu.gyarmati.kemarkiexercise.domain.AddressType;
 import hu.gyarmati.kemarkiexercise.domain.Person;
 import hu.gyarmati.kemarkiexercise.dto.AddressInfoDto;
 import hu.gyarmati.kemarkiexercise.dto.SaveAndUpdateAddressDto;
@@ -26,7 +27,10 @@ public class AddressServiceImp implements AddressService {
 
     @Override
     public AddressInfoDto saveAddress(SaveAndUpdateAddressDto saveAndUpdateAddressDto) {
-        Person person = personService.findPersonById(saveAndUpdateAddressDto.getPersonId());
+        Person person = personService.checkPersonByAddressTypeAndNumberOfAddressType(AddressType.valueOf(saveAndUpdateAddressDto.getAddressType()), saveAndUpdateAddressDto.getPersonId());
+        if (person == null) {
+            throw new RuntimeException();
+        }
         Address address = modelMapper.map(saveAndUpdateAddressDto, Address.class);
         address.setPerson(person);
         Address savedAddress = addressRepository.save(address);

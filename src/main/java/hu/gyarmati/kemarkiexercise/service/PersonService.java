@@ -1,5 +1,6 @@
 package hu.gyarmati.kemarkiexercise.service;
 
+import hu.gyarmati.kemarkiexercise.domain.AddressType;
 import hu.gyarmati.kemarkiexercise.domain.Person;
 import hu.gyarmati.kemarkiexercise.dto.PersonDetailsDto;
 import hu.gyarmati.kemarkiexercise.dto.PersonInfoDto;
@@ -19,4 +20,6 @@ public interface PersonService {
     void deletePerson(Long id);
 
     Person findPersonById(Long id);
-}
+    Person checkPersonByAddressTypeAndNumberOfAddressType(AddressType addressType, Long personId);
+
+    }
