@@ -17,6 +17,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
 
 import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -108,5 +109,17 @@ public class AddressServiceTest {
         given(addressRepository.findById(anyLong())).willReturn(Optional.empty());
 
         assertThrows(AddressNotFoundByIdException.class, () -> addressServiceImp.getAddressById(1L));
+    }
+
+    @DisplayName("Test for getAllAddress")
+    @Test
+    public void canGetAllAddress() {
+        doReturn(addressDetailsDto).when(modelMapper).map(address, AddressDetailsDto.class);
+
+        given(addressRepository.findAll()).willReturn(List.of(address, new Address(2L, AddressType.TEMPORARY, person, Collections.emptyList())));
+
+        List<AddressDetailsDto> addressDetailsDtoList = addressServiceImp.getAllAddress();
+
+        assertThat(addressDetailsDtoList).hasSize(2);
     }
 }
