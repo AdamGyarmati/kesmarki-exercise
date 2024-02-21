@@ -4,6 +4,7 @@ import hu.gyarmati.kemarkiexercise.domain.Address;
 import hu.gyarmati.kemarkiexercise.domain.AddressType;
 import hu.gyarmati.kemarkiexercise.domain.ContactInformation;
 import hu.gyarmati.kemarkiexercise.domain.ContactInformationType;
+import hu.gyarmati.kemarkiexercise.dto.AddressDetailsDto;
 import hu.gyarmati.kemarkiexercise.dto.ContactInformationInfoDto;
 import hu.gyarmati.kemarkiexercise.dto.SaveAndUpdateContactInformationDto;
 import hu.gyarmati.kemarkiexercise.repository.ContactInformationRepository;
@@ -15,6 +16,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
+
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
@@ -82,5 +85,17 @@ public class ContactInformationServiceTest {
         ContactInformationInfoDto contactInformationInfoDto = contactInformationServiceImp.saveAddress(saveAndUpdateContactInformationDto);
 
         assertThat(contactInformationInfoDto).isNotNull();
+    }
+
+    @DisplayName("Test for getContactInformationById method")
+    @Test
+    public void canGetContactInformationById() {
+        doReturn(contactInformationInfoDto).when(modelMapper).map(contactInformation, ContactInformationInfoDto.class);
+
+        given(contactInformationRepository.findById(1L)).willReturn(Optional.ofNullable(contactInformation));
+
+        ContactInformationInfoDto getContactInformationInfoDto = contactInformationServiceImp.getContactInformationById(contactInformation.getId());
+
+        assertThat(getContactInformationInfoDto).isNotNull();
     }
 }
