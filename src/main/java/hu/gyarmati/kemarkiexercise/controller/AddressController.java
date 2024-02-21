@@ -1,6 +1,8 @@
 package hu.gyarmati.kemarkiexercise.controller;
 
-import hu.gyarmati.kemarkiexercise.dto.*;
+import hu.gyarmati.kemarkiexercise.dto.AddressDetailsDto;
+import hu.gyarmati.kemarkiexercise.dto.AddressInfoDto;
+import hu.gyarmati.kemarkiexercise.dto.SaveAndUpdateAddressDto;
 import hu.gyarmati.kemarkiexercise.service.AddressService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
