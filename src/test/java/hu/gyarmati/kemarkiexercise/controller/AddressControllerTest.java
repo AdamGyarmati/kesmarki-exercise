@@ -15,6 +15,7 @@ import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.Collections;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
@@ -62,5 +63,22 @@ public class AddressControllerTest {
         assertThat(response.getContentAsString()).isEqualTo(
                 objectMapper.writeValueAsString(addressDetailsDto)
         );
+    }
+
+    @DisplayName("Test for getAllAddress method")
+    @Test
+    public void canGetAllAddress() throws Exception {
+        AddressDetailsDto address1 = new AddressDetailsDto(1L, "PERMANENT", Collections.emptyList());
+        AddressDetailsDto address2 = new AddressDetailsDto(2L, "TEMPORARY", Collections.emptyList());
+
+        given(addressService.getAllAddress())
+                .willReturn(List.of(address1, address2));
+
+        MockHttpServletResponse response = mvc.perform(
+                get("/api/addresses/all").accept(APPLICATION_JSON)
+        ).andReturn().getResponse();
+
+        assertThat(response.getStatus()).isEqualTo(OK.value());
+        assertThat(response.getContentAsString()).isEqualTo(objectMapper.writeValueAsString(new AddressDetailsDto[]{address1, address2}));
     }
 }
