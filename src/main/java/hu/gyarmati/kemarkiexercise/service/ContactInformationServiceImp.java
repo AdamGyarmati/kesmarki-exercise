@@ -31,4 +31,9 @@ public class ContactInformationServiceImp implements ContactInformationService {
         contactInformation.setAddress(address);
         return modelMapper.map(contactInformationRepository.save(contactInformation), ContactInformationInfoDto.class);
     }
+
+    @Override
+    public ContactInformationInfoDto getContactInformationById(Long id) {
+        return null;
+    }
 }

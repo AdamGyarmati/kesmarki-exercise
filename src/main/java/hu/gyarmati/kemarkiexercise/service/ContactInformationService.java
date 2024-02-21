@@ -6,4 +6,6 @@ import hu.gyarmati.kemarkiexercise.dto.SaveAndUpdateContactInformationDto;
 
 public interface ContactInformationService {
     ContactInformationInfoDto saveAddress(SaveAndUpdateContactInformationDto saveAndUpdateContactInformationDto);
+
+    ContactInformationInfoDto getContactInformationById(Long id);
 }
