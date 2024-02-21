@@ -1,0 +1,33 @@
+server:
+  port: 8080
+  servlet:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+
+spring:
+  datasource:
+    url: jdbc:sqlserver://;serverName=localhost;databaseName=kesmarkiDb;encrypt=true;trustServerCertificate=true;
+    username: SA
+    password: KesmarkiMssqlPW1!
+    driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+        dialect: org.hibernate.dialect.SQLServerDialect
+    generate-ddl: true
+    open-in-view: false
+
+logging:
+  level:
+    hu.gyarmati: info
+    org.springframework.web: info
+    org.hibernate: error
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
