@@ -77,6 +77,8 @@ public class AddressServiceImp implements AddressService {
 
     @Override
     public void deleteAddress(Long id) {
-
+        Address address = findAddressById(id);
+        address.setPerson(null);
+        addressRepository.delete(address);
     }
 }

@@ -27,6 +27,6 @@ public class Address {
     @JoinColumn(name = "person_id")
     private Person person;
 
-    @OneToMany(mappedBy = "address")
+    @OneToMany(mappedBy = "address", cascade = CascadeType.REMOVE)
     private List<ContactInformation> contactInformationList;
 }
