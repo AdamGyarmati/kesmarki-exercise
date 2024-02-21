@@ -62,7 +62,7 @@ public class AddressServiceTest {
                 .build();
 
         saveAndUpdateAddressDto = SaveAndUpdateAddressDto.builder()
-                .addressType("PERMANENT")
+                .addressType("OTHER")
                 .personId(person.getId())
                 .build();
 
@@ -83,6 +83,8 @@ public class AddressServiceTest {
     public void canSaveAddress() {
         doReturn(address).when(modelMapper).map(saveAndUpdateAddressDto, Address.class);
         doReturn(addressInfoDto).when(modelMapper).map(address, AddressInfoDto.class);
+
+        given(personService.checkPersonByAddressTypeAndNumberOfAddressType(AddressType.OTHER, person.getId())).willReturn(person);
 
         given(addressRepository.save(address)).willReturn(address);
 
@@ -121,5 +123,19 @@ public class AddressServiceTest {
         List<AddressDetailsDto> addressDetailsDtoList = addressServiceImp.getAllAddress();
 
         assertThat(addressDetailsDtoList).hasSize(2);
+    }
+
+    @DisplayName("Test for updateAddress")
+    @Test
+    public void canUpdateAddress() {
+        SaveAndUpdateAddressDto dto = new SaveAndUpdateAddressDto("PERMANENT", 1L);
+        AddressInfoDto expectedAddress = new AddressInfoDto(1L, "PERMANENT");
+
+        given(addressRepository.findById(address.getId())).willReturn(Optional.ofNullable(address));
+        given(modelMapper.map(address, AddressInfoDto.class)).willReturn(expectedAddress);
+
+        AddressInfoDto updatedAddress = addressServiceImp.updateAddress(address.getId(), dto);
+
+        assertThat(updatedAddress).isEqualTo(expectedAddress);
     }
 }
