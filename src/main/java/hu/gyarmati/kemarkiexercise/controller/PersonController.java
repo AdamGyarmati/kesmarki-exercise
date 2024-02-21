@@ -10,7 +10,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 import static org.springframework.http.HttpStatus.CREATED;
+import static org.springframework.http.HttpStatus.OK;
 
 @RestController
 @RequestMapping("/api/persons")
@@ -36,5 +39,12 @@ public class PersonController {
         log.info("Http request GET /api/persons/{id} with path variable: " + id);
         PersonDetailsDto personDetailsDto = personService.getPersonById(id);
         return new ResponseEntity<>(personDetailsDto, HttpStatus.OK);
+    }
+
+    @GetMapping("/all")
+    public ResponseEntity<List<PersonDetailsDto>> getAllPerson() {
+        log.info("Http request GET /api/persons/all");
+        List<PersonDetailsDto> personDetailsDtoList = personService.getAllPerson();
+        return new ResponseEntity<>(personDetailsDtoList, OK);
     }
 }

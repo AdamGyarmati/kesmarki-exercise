@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @Transactional
 public class PersonServiceImp implements PersonService {
@@ -33,6 +35,11 @@ public class PersonServiceImp implements PersonService {
     public PersonDetailsDto getPersonById(Long id) {
         Person person = findPersonById(id);
         return modelMapper.map(person, PersonDetailsDto.class);
+    }
+
+    @Override
+    public List<PersonDetailsDto> getAllPerson() {
+        return null;
     }
 
     private Person findPersonById(Long id) {
