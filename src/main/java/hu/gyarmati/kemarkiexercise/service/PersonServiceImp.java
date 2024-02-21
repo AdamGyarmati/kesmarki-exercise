@@ -4,6 +4,7 @@ import hu.gyarmati.kemarkiexercise.domain.Person;
 import hu.gyarmati.kemarkiexercise.dto.PersonDetailsDto;
 import hu.gyarmati.kemarkiexercise.dto.PersonInfoDto;
 import hu.gyarmati.kemarkiexercise.dto.SavePersonDto;
+import hu.gyarmati.kemarkiexercise.exceptionhandling.PersonNotFoundByIdException;
 import hu.gyarmati.kemarkiexercise.repository.PersonRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +31,11 @@ public class PersonServiceImp implements PersonService {
 
     @Override
     public PersonDetailsDto getPersonById(Long id) {
-        Person person = personRepository.findById(id).orElseThrow(() -> new RuntimeException());
+        Person person = findPersonById(id);
         return modelMapper.map(person, PersonDetailsDto.class);
+    }
+
+    private Person findPersonById(Long id) {
+        return personRepository.findById(id).orElseThrow(() -> new PersonNotFoundByIdException(id));
     }
 }
