@@ -4,9 +4,7 @@ import hu.gyarmati.kemarkiexercise.domain.Address;
 import hu.gyarmati.kemarkiexercise.domain.AddressType;
 import hu.gyarmati.kemarkiexercise.domain.ContactInformation;
 import hu.gyarmati.kemarkiexercise.domain.ContactInformationType;
-import hu.gyarmati.kemarkiexercise.dto.AddressDetailsDto;
-import hu.gyarmati.kemarkiexercise.dto.ContactInformationInfoDto;
-import hu.gyarmati.kemarkiexercise.dto.SaveAndUpdateContactInformationDto;
+import hu.gyarmati.kemarkiexercise.dto.*;
 import hu.gyarmati.kemarkiexercise.exceptionhandling.AddressNotFoundByIdException;
 import hu.gyarmati.kemarkiexercise.exceptionhandling.ContactInformationNotFoundByIdException;
 import hu.gyarmati.kemarkiexercise.repository.ContactInformationRepository;
@@ -129,5 +127,19 @@ public class ContactInformationServiceTest {
                 contactInformationServiceImp.getAllContactInformation();
 
         assertThat(contactInformationInfoDtoList).hasSize(2);
+    }
+
+    @DisplayName("Test for updateContactInformation")
+    @Test
+    public void canUpdateContactInformation() {
+        SaveAndUpdateAddressDto dto = new SaveAndUpdateAddressDto("PERMANENT", 1L);
+        AddressInfoDto expectedAddress = new AddressInfoDto(1L, "PERMANENT");
+
+        given(contactInformationRepository.findById(address.getId())).willReturn(Optional.ofNullable(contactInformation));
+        given(modelMapper.map(contactInformation, ContactInformationInfoDto.class)).willReturn(contactInformationInfoDto);
+
+        ContactInformationInfoDto updatedContactInformation = contactInformationServiceImp.updateContactInformation(contactInformation.getId(), saveAndUpdateContactInformationDto);
+
+        assertThat(updatedContactInformation).isEqualTo(contactInformationInfoDto);
     }
 }
