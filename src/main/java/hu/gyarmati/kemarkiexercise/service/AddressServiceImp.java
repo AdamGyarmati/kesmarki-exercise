@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -56,6 +57,8 @@ public class AddressServiceImp implements AddressService {
 
     @Override
     public List<AddressDetailsDto> getAllAddress() {
-        return null;
+        return addressRepository.findAll().stream()
+                .map(address -> modelMapper.map(address, AddressDetailsDto.class))
+                .collect(Collectors.toList());
     }
 }
