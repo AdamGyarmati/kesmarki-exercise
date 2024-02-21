@@ -63,7 +63,7 @@ public class AddressServiceTest {
                 .build();
 
         saveAndUpdateAddressDto = SaveAndUpdateAddressDto.builder()
-                .addressType("OTHER")
+                .addressType("TEMPORARY")
                 .personId(person.getId())
                 .build();
 
@@ -86,7 +86,7 @@ public class AddressServiceTest {
         doReturn(addressInfoDto).when(modelMapper).map(address, AddressInfoDto.class);
 
         given(personService.findPersonById(1L)).willReturn(person);
-        given(personService.checkPersonByAddressTypeAndNumberOfAddressType(AddressType.OTHER, person.getId())).willReturn(false);
+        given(personService.checkPersonByAddressTypeAndNumberOfAddressType(AddressType.TEMPORARY, person.getId())).willReturn(false);
 
         given(addressRepository.save(address)).willReturn(address);
 
