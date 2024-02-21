@@ -1,8 +1,8 @@
 package hu.gyarmati.kemarkiexercise.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import hu.gyarmati.kemarkiexercise.domain.ContactInformationType;
-import hu.gyarmati.kemarkiexercise.dto.*;
+import hu.gyarmati.kemarkiexercise.dto.ContactInformationInfoDto;
+import hu.gyarmati.kemarkiexercise.dto.SaveAndUpdateContactInformationDto;
 import hu.gyarmati.kemarkiexercise.service.ContactInformationService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -12,7 +12,6 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.web.servlet.MockMvc;
 
-import java.util.Collections;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;

@@ -3,9 +3,10 @@ package hu.gyarmati.kemarkiexercise.service;
 import hu.gyarmati.kemarkiexercise.domain.Address;
 import hu.gyarmati.kemarkiexercise.domain.AddressType;
 import hu.gyarmati.kemarkiexercise.domain.Person;
-import hu.gyarmati.kemarkiexercise.dto.*;
+import hu.gyarmati.kemarkiexercise.dto.AddressDetailsDto;
+import hu.gyarmati.kemarkiexercise.dto.AddressInfoDto;
+import hu.gyarmati.kemarkiexercise.dto.SaveAndUpdateAddressDto;
 import hu.gyarmati.kemarkiexercise.exceptionhandling.AddressNotFoundByIdException;
-import hu.gyarmati.kemarkiexercise.exceptionhandling.PersonNotFoundByIdException;
 import hu.gyarmati.kemarkiexercise.repository.AddressRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -25,7 +26,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.*;
-import static org.mockito.Mockito.times;
 
 @ExtendWith(MockitoExtension.class)
 public class AddressServiceTest {

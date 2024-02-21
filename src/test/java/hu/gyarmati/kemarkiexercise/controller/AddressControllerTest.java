@@ -1,7 +1,9 @@
 package hu.gyarmati.kemarkiexercise.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import hu.gyarmati.kemarkiexercise.dto.*;
+import hu.gyarmati.kemarkiexercise.dto.AddressDetailsDto;
+import hu.gyarmati.kemarkiexercise.dto.AddressInfoDto;
+import hu.gyarmati.kemarkiexercise.dto.SaveAndUpdateAddressDto;
 import hu.gyarmati.kemarkiexercise.service.AddressService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

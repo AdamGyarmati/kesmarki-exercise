@@ -3,9 +3,8 @@ package hu.gyarmati.kemarkiexercise.service;
 import hu.gyarmati.kemarkiexercise.domain.Address;
 import hu.gyarmati.kemarkiexercise.domain.AddressType;
 import hu.gyarmati.kemarkiexercise.domain.ContactInformation;
-import hu.gyarmati.kemarkiexercise.domain.ContactInformationType;
-import hu.gyarmati.kemarkiexercise.dto.*;
-import hu.gyarmati.kemarkiexercise.exceptionhandling.AddressNotFoundByIdException;
+import hu.gyarmati.kemarkiexercise.dto.ContactInformationInfoDto;
+import hu.gyarmati.kemarkiexercise.dto.SaveAndUpdateContactInformationDto;
 import hu.gyarmati.kemarkiexercise.exceptionhandling.ContactInformationNotFoundByIdException;
 import hu.gyarmati.kemarkiexercise.repository.ContactInformationRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -17,7 +16,6 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,7 +26,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.*;
-import static org.mockito.Mockito.times;
 
 @ExtendWith(MockitoExtension.class)
 public class ContactInformationServiceTest {

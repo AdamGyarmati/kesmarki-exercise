@@ -5,7 +5,6 @@ import hu.gyarmati.kemarkiexercise.domain.ContactInformation;
 import hu.gyarmati.kemarkiexercise.domain.ContactInformationType;
 import hu.gyarmati.kemarkiexercise.dto.ContactInformationInfoDto;
 import hu.gyarmati.kemarkiexercise.dto.SaveAndUpdateContactInformationDto;
-import hu.gyarmati.kemarkiexercise.exceptionhandling.AddressNotFoundByIdException;
 import hu.gyarmati.kemarkiexercise.exceptionhandling.ContactInformationNotFoundByIdException;
 import hu.gyarmati.kemarkiexercise.repository.ContactInformationRepository;
 import org.modelmapper.ModelMapper;
