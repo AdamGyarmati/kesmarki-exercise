@@ -44,4 +44,12 @@ public class ContactInformationController {
         List<ContactInformationInfoDto> contactInformationInfoDtoList = contactInformationService.getAllContactInformation();
         return new ResponseEntity<>(contactInformationInfoDtoList, OK);
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<ContactInformationInfoDto> updateContactInformation(@PathVariable Long id, @RequestBody SaveAndUpdateContactInformationDto saveAndUpdateContactInformationDto) {
+        log.info("Http request PUT /api/contact-informations/{id} with path variable: " + id + ", and body: " + saveAndUpdateContactInformationDto.toString());
+        ContactInformationInfoDto contactInformationInfoDto
+                = contactInformationService.updateContactInformation(id, saveAndUpdateContactInformationDto);
+        return new ResponseEntity<>(contactInformationInfoDto, OK);
+    }
 }

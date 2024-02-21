@@ -12,4 +12,6 @@ public interface ContactInformationService {
     ContactInformationInfoDto getContactInformationById(Long id);
 
     List<ContactInformationInfoDto> getAllContactInformation();
+
+    ContactInformationInfoDto updateContactInformation(Long id, SaveAndUpdateContactInformationDto saveAndUpdateContactInformationDto);
 }

@@ -50,6 +50,11 @@ public class ContactInformationServiceImp implements ContactInformationService {
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public ContactInformationInfoDto updateContactInformation(Long id, SaveAndUpdateContactInformationDto saveAndUpdateContactInformationDto) {
+        return null;
+    }
+
     private ContactInformation findContactInformationById(Long id) {
         return contactInformationRepository.findById(id).orElseThrow(() -> new ContactInformationNotFoundByIdException(id));
     }
