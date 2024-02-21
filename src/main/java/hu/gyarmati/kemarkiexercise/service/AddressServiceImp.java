@@ -6,7 +6,9 @@ import hu.gyarmati.kemarkiexercise.domain.Person;
 import hu.gyarmati.kemarkiexercise.dto.AddressDetailsDto;
 import hu.gyarmati.kemarkiexercise.dto.AddressInfoDto;
 import hu.gyarmati.kemarkiexercise.dto.SaveAndUpdateAddressDto;
+import hu.gyarmati.kemarkiexercise.exceptionhandling.AddressNotFoundByIdException;
 import hu.gyarmati.kemarkiexercise.exceptionhandling.PersonAlreadyHasTwoAddressOrAddressTypeAlreadyInUseException;
+import hu.gyarmati.kemarkiexercise.exceptionhandling.PersonNotFoundByIdException;
 import hu.gyarmati.kemarkiexercise.repository.AddressRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,6 +49,6 @@ public class AddressServiceImp implements AddressService {
 
     @Override
     public Address findAddressById(Long id) {
-        return addressRepository.findById(id).orElseThrow(() -> new RuntimeException());
+        return addressRepository.findById(id).orElseThrow(() -> new AddressNotFoundByIdException(id));
     }
 }

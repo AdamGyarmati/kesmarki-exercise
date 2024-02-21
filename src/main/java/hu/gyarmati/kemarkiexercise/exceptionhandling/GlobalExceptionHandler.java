@@ -24,4 +24,11 @@ public class GlobalExceptionHandler {
         log.error("Error in validation: " + validationError.getField() + ": " + validationError.getErrorMessage());
         return new ResponseEntity<>(List.of(validationError), HttpStatus.BAD_REQUEST);
     }
+
+    @ExceptionHandler(AddressNotFoundByIdException.class)
+    public ResponseEntity<List<ValidationError>> handleAddressNotFoundByIdException(AddressNotFoundByIdException exception) {
+        ValidationError validationError = new ValidationError("addressId", "Address not found by id: " + exception.getAddressId());
+        log.error("Error in validation: " + validationError.getField() + ": " + validationError.getErrorMessage());
+        return new ResponseEntity<>(List.of(validationError), HttpStatus.BAD_REQUEST);
+    }
 }
