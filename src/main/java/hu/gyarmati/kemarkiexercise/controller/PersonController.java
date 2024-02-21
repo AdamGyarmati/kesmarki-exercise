@@ -50,6 +50,8 @@ public class PersonController {
 
     @PutMapping("/{id}")
     public ResponseEntity<PersonInfoDto> updatePerson(@PathVariable Long id, @RequestBody SaveAndUpdatePersonDto saveAndUpdatePersonDto) {
-        return null;
+        log.info("Http request PUT /api/persons with path variable: " + id + ", and body: " + saveAndUpdatePersonDto.toString());
+        PersonInfoDto personInfoDto = personService.updatePerson(id, saveAndUpdatePersonDto);
+        return new ResponseEntity<>(personInfoDto, OK);
     }
 }

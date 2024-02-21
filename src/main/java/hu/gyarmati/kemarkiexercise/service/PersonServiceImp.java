@@ -45,6 +45,11 @@ public class PersonServiceImp implements PersonService {
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public PersonInfoDto updatePerson(Long id, SaveAndUpdatePersonDto saveAndUpdatePersonDto) {
+        return null;
+    }
+
     private Person findPersonById(Long id) {
         return personRepository.findById(id).orElseThrow(() -> new PersonNotFoundByIdException(id));
     }

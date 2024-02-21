@@ -12,4 +12,6 @@ public interface PersonService {
     PersonDetailsDto getPersonById(Long id);
 
     List<PersonDetailsDto> getAllPerson();
+
+    PersonInfoDto updatePerson(Long id, SaveAndUpdatePersonDto saveAndUpdatePersonDto);
 }
