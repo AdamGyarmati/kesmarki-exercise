@@ -15,6 +15,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @Transactional
 public class AddressServiceImp implements AddressService {
@@ -50,5 +52,10 @@ public class AddressServiceImp implements AddressService {
     @Override
     public Address findAddressById(Long id) {
         return addressRepository.findById(id).orElseThrow(() -> new AddressNotFoundByIdException(id));
+    }
+
+    @Override
+    public List<AddressDetailsDto> getAllAddress() {
+        return null;
     }
 }

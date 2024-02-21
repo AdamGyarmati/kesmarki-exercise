@@ -8,7 +8,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 import static org.springframework.http.HttpStatus.CREATED;
+import static org.springframework.http.HttpStatus.OK;
 
 @RestController
 @RequestMapping("/api/addresses")
@@ -33,5 +36,12 @@ public class AddressController {
         log.info("Http request GET /api/addresses/{id} with path variable: " + id);
         AddressDetailsDto addressDetailsDto = addressService.getAddressById(id);
         return new ResponseEntity<>(addressDetailsDto, HttpStatus.OK);
+    }
+
+    @GetMapping("/all")
+    public ResponseEntity<List<AddressDetailsDto>> getAllAddress() {
+        log.info("Http request GET /api/addresses/all");
+        List<AddressDetailsDto> addressDetailsDtoList = addressService.getAllAddress();
+        return new ResponseEntity<>(addressDetailsDtoList, OK);
     }
 }
