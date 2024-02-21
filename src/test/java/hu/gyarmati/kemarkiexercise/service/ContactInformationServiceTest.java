@@ -7,6 +7,8 @@ import hu.gyarmati.kemarkiexercise.domain.ContactInformationType;
 import hu.gyarmati.kemarkiexercise.dto.AddressDetailsDto;
 import hu.gyarmati.kemarkiexercise.dto.ContactInformationInfoDto;
 import hu.gyarmati.kemarkiexercise.dto.SaveAndUpdateContactInformationDto;
+import hu.gyarmati.kemarkiexercise.exceptionhandling.AddressNotFoundByIdException;
+import hu.gyarmati.kemarkiexercise.exceptionhandling.ContactInformationNotFoundByIdException;
 import hu.gyarmati.kemarkiexercise.repository.ContactInformationRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -20,6 +22,8 @@ import org.modelmapper.ModelMapper;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.doReturn;
 
@@ -97,5 +101,13 @@ public class ContactInformationServiceTest {
         ContactInformationInfoDto getContactInformationInfoDto = contactInformationServiceImp.getContactInformationById(contactInformation.getId());
 
         assertThat(getContactInformationInfoDto).isNotNull();
+    }
+
+    @DisplayName("Test for getContactInformationById method throw ContactInformationNotFoundByIdException")
+    @Test
+    public void canGetContactInformationById_throw_ContactInformationNotFoundByIdException() {
+        given(contactInformationRepository.findById(anyLong())).willReturn(Optional.empty());
+
+        assertThrows(ContactInformationNotFoundByIdException.class, () -> contactInformationServiceImp.getContactInformationById(1L));
     }
 }
