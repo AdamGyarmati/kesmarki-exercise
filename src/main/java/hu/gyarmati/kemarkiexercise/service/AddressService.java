@@ -14,4 +14,6 @@ public interface AddressService {
     Address findAddressById(Long id);
 
     List<AddressDetailsDto> getAllAddress();
+
+    AddressInfoDto updateAddress(Long id, SaveAndUpdateAddressDto saveAndUpdateAddressDto);
 }

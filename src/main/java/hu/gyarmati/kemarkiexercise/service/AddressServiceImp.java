@@ -61,4 +61,9 @@ public class AddressServiceImp implements AddressService {
                 .map(address -> modelMapper.map(address, AddressDetailsDto.class))
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public AddressInfoDto updateAddress(Long id, SaveAndUpdateAddressDto saveAndUpdateAddressDto) {
+        return null;
+    }
 }

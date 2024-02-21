@@ -44,4 +44,11 @@ public class AddressController {
         List<AddressDetailsDto> addressDetailsDtoList = addressService.getAllAddress();
         return new ResponseEntity<>(addressDetailsDtoList, OK);
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<AddressInfoDto> updateAddress(@PathVariable Long id, @RequestBody SaveAndUpdateAddressDto saveAndUpdateAddressDto) {
+        log.info("Http request PUT /api/addresses/{id} with path variable: " + id + ", and body: " + saveAndUpdateAddressDto.toString());
+        AddressInfoDto addressInfoDto = addressService.updateAddress(id, saveAndUpdateAddressDto);
+        return new ResponseEntity<>(addressInfoDto, OK);
+    }
 }
