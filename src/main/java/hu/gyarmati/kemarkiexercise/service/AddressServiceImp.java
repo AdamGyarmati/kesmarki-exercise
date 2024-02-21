@@ -64,6 +64,14 @@ public class AddressServiceImp implements AddressService {
 
     @Override
     public AddressInfoDto updateAddress(Long id, SaveAndUpdateAddressDto saveAndUpdateAddressDto) {
-        return null;
+        Address existingAddress = findAddressById(id);
+
+        if (existingAddress.getAddressType() != AddressType.valueOf(saveAndUpdateAddressDto.getAddressType())) {
+            if (addressRepository.existsByAddressTypeAndPersonId(AddressType.valueOf(saveAndUpdateAddressDto.getAddressType()), saveAndUpdateAddressDto.getPersonId())) {
+                throw new IllegalArgumentException("Már létezik másik cím az adott típussal.");
+            }
+        }
+        existingAddress.setAddressType(AddressType.valueOf(saveAndUpdateAddressDto.getAddressType()));
+        return modelMapper.map(existingAddress, AddressInfoDto.class);
     }
 }
