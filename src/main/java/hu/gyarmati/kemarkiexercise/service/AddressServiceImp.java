@@ -3,6 +3,7 @@ package hu.gyarmati.kemarkiexercise.service;
 import hu.gyarmati.kemarkiexercise.domain.Address;
 import hu.gyarmati.kemarkiexercise.domain.AddressType;
 import hu.gyarmati.kemarkiexercise.domain.Person;
+import hu.gyarmati.kemarkiexercise.dto.AddressDetailsDto;
 import hu.gyarmati.kemarkiexercise.dto.AddressInfoDto;
 import hu.gyarmati.kemarkiexercise.dto.SaveAndUpdateAddressDto;
 import hu.gyarmati.kemarkiexercise.exceptionhandling.PersonAlreadyHasTwoAddressOrAddressTypeAlreadyInUseException;
@@ -36,5 +37,10 @@ public class AddressServiceImp implements AddressService {
         address.setPerson(person);
         Address savedAddress = addressRepository.save(address);
         return modelMapper.map(savedAddress, AddressInfoDto.class);
+    }
+
+    @Override
+    public AddressDetailsDto getAddressById(Long id) {
+        return null;
     }
 }
