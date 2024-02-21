@@ -17,8 +17,7 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
-import static org.springframework.http.HttpStatus.CREATED;
-import static org.springframework.http.HttpStatus.OK;
+import static org.springframework.http.HttpStatus.*;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 
@@ -97,5 +96,15 @@ public class ContactInformationControllerTest {
 
         assertThat(response.getStatus()).isEqualTo(OK.value());
         assertThat(response.getContentAsString()).isEqualTo(objectMapper.writeValueAsString(contactInformationInfoDto));
+    }
+
+    @DisplayName("Test for deleteContactInformation method")
+    @Test
+    public void canDeleteContactInformation() throws Exception {
+        MockHttpServletResponse response = mvc.perform(
+                delete("/api/contact-informations/1")
+        ).andReturn().getResponse();
+
+        assertThat(response.getStatus()).isEqualTo(NO_CONTENT.value());
     }
 }
