@@ -85,7 +85,8 @@ public class AddressServiceTest {
         doReturn(address).when(modelMapper).map(saveAndUpdateAddressDto, Address.class);
         doReturn(addressInfoDto).when(modelMapper).map(address, AddressInfoDto.class);
 
-        given(personService.checkPersonByAddressTypeAndNumberOfAddressType(AddressType.OTHER, person.getId())).willReturn(person);
+        given(personService.findPersonById(1L)).willReturn(person);
+        given(personService.checkPersonByAddressTypeAndNumberOfAddressType(AddressType.OTHER, person.getId())).willReturn(false);
 
         given(addressRepository.save(address)).willReturn(address);
 
