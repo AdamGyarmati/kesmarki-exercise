@@ -77,9 +77,9 @@ public class AddressControllerTest {
         assertThat(response.getContentAsString()).isEqualTo(objectMapper.writeValueAsString(new AddressDetailsDto[]{address1, address2}));
     }
 
-    @DisplayName("Test for updatePerson method")
+    @DisplayName("Test for updateAddress method")
     @Test
-    public void canUpdatePerson() throws Exception {
+    public void canUpdateAddress() throws Exception {
         SaveAndUpdateAddressDto dto = new SaveAndUpdateAddressDto("PERMANENT", 2L);
         AddressInfoDto addressInfo = new AddressInfoDto(1L, "PERMANENT");
 

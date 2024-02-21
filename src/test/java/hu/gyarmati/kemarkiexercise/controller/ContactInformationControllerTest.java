@@ -2,9 +2,7 @@ package hu.gyarmati.kemarkiexercise.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import hu.gyarmati.kemarkiexercise.domain.ContactInformationType;
-import hu.gyarmati.kemarkiexercise.dto.AddressDetailsDto;
-import hu.gyarmati.kemarkiexercise.dto.ContactInformationInfoDto;
-import hu.gyarmati.kemarkiexercise.dto.PersonInfoDto;
+import hu.gyarmati.kemarkiexercise.dto.*;
 import hu.gyarmati.kemarkiexercise.service.ContactInformationService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -22,8 +20,7 @@ import static org.mockito.BDDMockito.given;
 import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.HttpStatus.OK;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 
 @WebMvcTest(ContactInformationController.class)
 public class ContactInformationControllerTest {
@@ -81,5 +78,24 @@ public class ContactInformationControllerTest {
 
         assertThat(response.getStatus()).isEqualTo(OK.value());
         assertThat(response.getContentAsString()).isEqualTo(objectMapper.writeValueAsString(new ContactInformationInfoDto[]{contactInformationInfoDto1, contactInformationInfoDto2}));
+    }
+
+    @DisplayName("Test for updateContactInformation method")
+    @Test
+    public void canUpdateContactInformation() throws Exception {
+        SaveAndUpdateContactInformationDto dto
+                = new SaveAndUpdateContactInformationDto("Info", "EMAIL", 1L);
+        ContactInformationInfoDto contactInformationInfoDto = new ContactInformationInfoDto(1L, "Info", "EMAIL");
+
+        given(contactInformationService.updateContactInformation(1L, dto)).willReturn(contactInformationInfoDto);
+
+        MockHttpServletResponse response = mvc.perform(
+                put("/api/contact-informations/1")
+                        .contentType(APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(dto))
+        ).andReturn().getResponse();
+
+        assertThat(response.getStatus()).isEqualTo(OK.value());
+        assertThat(response.getContentAsString()).isEqualTo(objectMapper.writeValueAsString(contactInformationInfoDto));
     }
 }
