@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -44,7 +45,9 @@ public class ContactInformationServiceImp implements ContactInformationService {
 
     @Override
     public List<ContactInformationInfoDto> getAllContactInformation() {
-        return null;
+        return contactInformationRepository.findAll().stream()
+                .map(info -> modelMapper.map(info, ContactInformationInfoDto.class))
+                .collect(Collectors.toList());
     }
 
     private ContactInformation findContactInformationById(Long id) {
