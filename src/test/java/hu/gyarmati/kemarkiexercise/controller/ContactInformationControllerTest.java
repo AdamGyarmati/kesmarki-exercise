@@ -15,6 +15,7 @@ import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.Collections;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
@@ -63,5 +64,22 @@ public class ContactInformationControllerTest {
         assertThat(response.getContentAsString()).isEqualTo(
                 objectMapper.writeValueAsString(contactInformationInfoDto)
         );
+    }
+
+    @DisplayName("Test for getAllContactInformation method")
+    @Test
+    public void canGetAllContactInformation() throws Exception {
+        ContactInformationInfoDto contactInformationInfoDto1 = new ContactInformationInfoDto(1L, "Info", "PHONE");
+        ContactInformationInfoDto contactInformationInfoDto2 = new ContactInformationInfoDto(2L, "Info2", "EMAIL");
+
+        given(contactInformationService.getAllContactInformation())
+                .willReturn(List.of(contactInformationInfoDto1, contactInformationInfoDto2));
+
+        MockHttpServletResponse response = mvc.perform(
+                get("/api/contact-informations/all").accept(APPLICATION_JSON)
+        ).andReturn().getResponse();
+
+        assertThat(response.getStatus()).isEqualTo(OK.value());
+        assertThat(response.getContentAsString()).isEqualTo(objectMapper.writeValueAsString(new ContactInformationInfoDto[]{contactInformationInfoDto1, contactInformationInfoDto2}));
     }
 }
