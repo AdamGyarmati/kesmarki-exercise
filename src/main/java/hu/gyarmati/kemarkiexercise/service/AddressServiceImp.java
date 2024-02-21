@@ -41,6 +41,12 @@ public class AddressServiceImp implements AddressService {
 
     @Override
     public AddressDetailsDto getAddressById(Long id) {
-        return null;
+        Address savedAddress = findAddressById(id);
+        return modelMapper.map(savedAddress, AddressDetailsDto.class);
+    }
+
+    @Override
+    public Address findAddressById(Long id) {
+        return addressRepository.findById(id).orElseThrow(() -> new RuntimeException());
     }
 }
