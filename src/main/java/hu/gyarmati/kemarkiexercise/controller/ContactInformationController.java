@@ -27,7 +27,9 @@ public class ContactInformationController {
     }
 
     @PostMapping
-    public ResponseEntity<ContactInformationInfoDto> saveAddress(@RequestBody SaveAndUpdateContactInformationDto saveAndUpdateContactInformationDto) {
-        return null;
+    public ResponseEntity<ContactInformationInfoDto> saveContactInformation(@RequestBody SaveAndUpdateContactInformationDto saveAndUpdateContactInformationDto) {
+        log.info("Http request POST /api/contact-informations with body: " + saveAndUpdateContactInformationDto.toString());
+        ContactInformationInfoDto contactInformationInfoDto = contactInformationService.saveAddress(saveAndUpdateContactInformationDto);
+        return new ResponseEntity<>(contactInformationInfoDto, CREATED);
     }
 }
