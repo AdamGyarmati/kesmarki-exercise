@@ -5,6 +5,7 @@ import hu.gyarmati.kemarkiexercise.domain.AddressType;
 import hu.gyarmati.kemarkiexercise.domain.Person;
 import hu.gyarmati.kemarkiexercise.dto.AddressInfoDto;
 import hu.gyarmati.kemarkiexercise.dto.SaveAndUpdateAddressDto;
+import hu.gyarmati.kemarkiexercise.exceptionhandling.PersonAlreadyHasTwoAddressOrAddressTypeAlreadyInUseException;
 import hu.gyarmati.kemarkiexercise.repository.AddressRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +30,7 @@ public class AddressServiceImp implements AddressService {
     public AddressInfoDto saveAddress(SaveAndUpdateAddressDto saveAndUpdateAddressDto) {
         Person person = personService.checkPersonByAddressTypeAndNumberOfAddressType(AddressType.valueOf(saveAndUpdateAddressDto.getAddressType()), saveAndUpdateAddressDto.getPersonId());
         if (person == null) {
-            throw new RuntimeException();
+            throw new PersonAlreadyHasTwoAddressOrAddressTypeAlreadyInUseException();
         }
         Address address = modelMapper.map(saveAndUpdateAddressDto, Address.class);
         address.setPerson(person);

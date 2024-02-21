@@ -17,4 +17,11 @@ public class GlobalExceptionHandler {
         log.error("Error in validation: " + validationError.getField() + ": " + validationError.getErrorMessage());
         return new ResponseEntity<>(List.of(validationError), HttpStatus.BAD_REQUEST);
     }
+
+    @ExceptionHandler(PersonAlreadyHasTwoAddressOrAddressTypeAlreadyInUseException.class)
+    public ResponseEntity<List<ValidationError>> handlePersonAlreadyHasTwoAddressOrAddressTypeAlreadyInUseException(PersonAlreadyHasTwoAddressOrAddressTypeAlreadyInUseException exception) {
+        ValidationError validationError = new ValidationError("Message:", "Address Type already in use or person has already 2 address.");
+        log.error("Error in validation: " + validationError.getField() + ": " + validationError.getErrorMessage());
+        return new ResponseEntity<>(List.of(validationError), HttpStatus.BAD_REQUEST);
+    }
 }
