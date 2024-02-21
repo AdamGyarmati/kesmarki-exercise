@@ -38,4 +38,11 @@ public class GlobalExceptionHandler {
         log.error("Error in validation: " + validationError.getField() + ": " + validationError.getErrorMessage());
         return new ResponseEntity<>(List.of(validationError), HttpStatus.BAD_REQUEST);
     }
+
+    @ExceptionHandler(ContactInformationNotFoundByIdException.class)
+    public ResponseEntity<List<ValidationError>> handleContactInformationNotFoundByIdException(ContactInformationNotFoundByIdException exception) {
+        ValidationError validationError = new ValidationError("contactInformationId", "ContactInformation not found by id: " + exception.getContactInformationId());
+        log.error("Error in validation: " + validationError.getField() + ": " + validationError.getErrorMessage());
+        return new ResponseEntity<>(List.of(validationError), HttpStatus.BAD_REQUEST);
+    }
 }
