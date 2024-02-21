@@ -63,7 +63,9 @@ public class ContactInformationServiceImp implements ContactInformationService {
 
     @Override
     public void deleteContactInformation(Long id) {
-
+        ContactInformation contactInformation = findContactInformationById(id);
+        contactInformation.setAddress(null);
+        contactInformationRepository.delete(contactInformation);
     }
 
     private ContactInformation findContactInformationById(Long id) {
