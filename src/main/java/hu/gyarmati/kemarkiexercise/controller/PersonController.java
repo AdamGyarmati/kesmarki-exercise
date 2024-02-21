@@ -33,6 +33,8 @@ public class PersonController {
 
     @GetMapping("/{id}")
     public ResponseEntity<PersonDetailsDto> getPersonById(@PathVariable Long id) {
-        return null;
+        log.info("Http request GET /api/persons/{id} with path variable: " + id);
+        PersonDetailsDto personDetailsDto = personService.getPersonById(id);
+        return new ResponseEntity<>(personDetailsDto, HttpStatus.OK);
     }
 }
