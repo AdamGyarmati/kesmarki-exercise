@@ -7,8 +7,8 @@ import hu.gyarmati.kemarkiexercise.dto.AddressDetailsDto;
 import hu.gyarmati.kemarkiexercise.dto.AddressInfoDto;
 import hu.gyarmati.kemarkiexercise.dto.SaveAndUpdateAddressDto;
 import hu.gyarmati.kemarkiexercise.exceptionhandling.AddressNotFoundByIdException;
+import hu.gyarmati.kemarkiexercise.exceptionhandling.PersonAlreadyHasThatAddressTypeException;
 import hu.gyarmati.kemarkiexercise.exceptionhandling.PersonAlreadyHasTwoAddressOrAddressTypeAlreadyInUseException;
-import hu.gyarmati.kemarkiexercise.exceptionhandling.PersonNotFoundByIdException;
 import hu.gyarmati.kemarkiexercise.repository.AddressRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,7 +68,7 @@ public class AddressServiceImp implements AddressService {
 
         if (existingAddress.getAddressType() != AddressType.valueOf(saveAndUpdateAddressDto.getAddressType())) {
             if (addressRepository.existsByAddressTypeAndPersonId(AddressType.valueOf(saveAndUpdateAddressDto.getAddressType()), saveAndUpdateAddressDto.getPersonId())) {
-                throw new IllegalArgumentException("Már létezik másik cím az adott típussal.");
+                throw new PersonAlreadyHasThatAddressTypeException(saveAndUpdateAddressDto.getAddressType());
             }
         }
         existingAddress.setAddressType(AddressType.valueOf(saveAndUpdateAddressDto.getAddressType()));
