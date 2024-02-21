@@ -2,6 +2,7 @@ package hu.gyarmati.kemarkiexercise.service;
 
 import hu.gyarmati.kemarkiexercise.domain.Address;
 import hu.gyarmati.kemarkiexercise.domain.ContactInformation;
+import hu.gyarmati.kemarkiexercise.domain.ContactInformationType;
 import hu.gyarmati.kemarkiexercise.dto.ContactInformationInfoDto;
 import hu.gyarmati.kemarkiexercise.dto.SaveAndUpdateContactInformationDto;
 import hu.gyarmati.kemarkiexercise.exceptionhandling.AddressNotFoundByIdException;
@@ -52,7 +53,12 @@ public class ContactInformationServiceImp implements ContactInformationService {
 
     @Override
     public ContactInformationInfoDto updateContactInformation(Long id, SaveAndUpdateContactInformationDto saveAndUpdateContactInformationDto) {
-        return null;
+        Address address = addressService.findAddressById(saveAndUpdateContactInformationDto.getAddressId());
+        ContactInformation contactInformation = findContactInformationById(id);
+        contactInformation.setContactInfo(saveAndUpdateContactInformationDto.getContactInfo());
+        contactInformation.setContactInformationType(ContactInformationType.valueOf(saveAndUpdateContactInformationDto.getContactInformationType()));
+        contactInformation.setAddress(address);
+        return modelMapper.map(contactInformation, ContactInformationInfoDto.class);
     }
 
     private ContactInformation findContactInformationById(Long id) {
