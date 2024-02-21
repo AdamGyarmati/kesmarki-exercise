@@ -133,9 +133,6 @@ public class ContactInformationServiceTest {
     @DisplayName("Test for updateContactInformation")
     @Test
     public void canUpdateContactInformation() {
-        SaveAndUpdateAddressDto dto = new SaveAndUpdateAddressDto("PERMANENT", 1L);
-        AddressInfoDto expectedAddress = new AddressInfoDto(1L, "PERMANENT");
-
         given(contactInformationRepository.findById(address.getId())).willReturn(Optional.ofNullable(contactInformation));
         given(modelMapper.map(contactInformation, ContactInformationInfoDto.class)).willReturn(contactInformationInfoDto);
 
