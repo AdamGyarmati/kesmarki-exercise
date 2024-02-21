@@ -2,7 +2,7 @@ package hu.gyarmati.kemarkiexercise.controller;
 
 import hu.gyarmati.kemarkiexercise.dto.PersonDetailsDto;
 import hu.gyarmati.kemarkiexercise.dto.PersonInfoDto;
-import hu.gyarmati.kemarkiexercise.dto.SavePersonDto;
+import hu.gyarmati.kemarkiexercise.dto.SaveAndUpdatePersonDto;
 import hu.gyarmati.kemarkiexercise.service.PersonService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,9 +28,9 @@ public class PersonController {
     }
 
     @PostMapping
-    public ResponseEntity<PersonInfoDto> savePerson(@RequestBody SavePersonDto savePersonDto) {
-        log.info("Http request POST /api/persons with body: " + savePersonDto.toString());
-        PersonInfoDto personInfoDto = personService.savePerson(savePersonDto);
+    public ResponseEntity<PersonInfoDto> savePerson(@RequestBody SaveAndUpdatePersonDto saveAndUpdatePersonDto) {
+        log.info("Http request POST /api/persons with body: " + saveAndUpdatePersonDto.toString());
+        PersonInfoDto personInfoDto = personService.savePerson(saveAndUpdatePersonDto);
         return new ResponseEntity<>(personInfoDto, CREATED);
     }
 
@@ -46,5 +46,10 @@ public class PersonController {
         log.info("Http request GET /api/persons/all");
         List<PersonDetailsDto> personDetailsDtoList = personService.getAllPerson();
         return new ResponseEntity<>(personDetailsDtoList, OK);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<PersonInfoDto> updatePerson(@PathVariable Long id, @RequestBody SaveAndUpdatePersonDto saveAndUpdatePersonDto) {
+        return null;
     }
 }

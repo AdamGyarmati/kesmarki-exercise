@@ -3,7 +3,7 @@ package hu.gyarmati.kemarkiexercise.service;
 import hu.gyarmati.kemarkiexercise.domain.Person;
 import hu.gyarmati.kemarkiexercise.dto.PersonDetailsDto;
 import hu.gyarmati.kemarkiexercise.dto.PersonInfoDto;
-import hu.gyarmati.kemarkiexercise.dto.SavePersonDto;
+import hu.gyarmati.kemarkiexercise.dto.SaveAndUpdatePersonDto;
 import hu.gyarmati.kemarkiexercise.exceptionhandling.PersonNotFoundByIdException;
 import hu.gyarmati.kemarkiexercise.repository.PersonRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -37,7 +37,7 @@ public class PersonServiceTest {
     private PersonServiceImp personServiceImp;
 
     private Person person;
-    private SavePersonDto savePersonDto;
+    private SaveAndUpdatePersonDto saveAndUpdatePersonDto;
     private PersonInfoDto personInfoDto;
     private PersonDetailsDto personDetailsDto;
 
@@ -49,7 +49,7 @@ public class PersonServiceTest {
                 .addressList(Collections.emptyList())
                 .build();
 
-        savePersonDto = SavePersonDto.builder()
+        saveAndUpdatePersonDto = SaveAndUpdatePersonDto.builder()
                 .name("John Doe")
                 .build();
 
@@ -68,12 +68,12 @@ public class PersonServiceTest {
     @DisplayName("Test for savePerson method")
     @Test
     public void canSavePerson() {
-        doReturn(person).when(modelMapper).map(savePersonDto, Person.class);
+        doReturn(person).when(modelMapper).map(saveAndUpdatePersonDto, Person.class);
         doReturn(personInfoDto).when(modelMapper).map(person, PersonInfoDto.class);
 
         given(personRepository.save(person)).willReturn(person);
 
-        PersonInfoDto savedPerson = personServiceImp.savePerson(savePersonDto);
+        PersonInfoDto savedPerson = personServiceImp.savePerson(saveAndUpdatePersonDto);
 
         assertThat(savedPerson).isNotNull();
     }

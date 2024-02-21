@@ -2,12 +2,12 @@ package hu.gyarmati.kemarkiexercise.service;
 
 import hu.gyarmati.kemarkiexercise.dto.PersonDetailsDto;
 import hu.gyarmati.kemarkiexercise.dto.PersonInfoDto;
-import hu.gyarmati.kemarkiexercise.dto.SavePersonDto;
+import hu.gyarmati.kemarkiexercise.dto.SaveAndUpdatePersonDto;
 
 import java.util.List;
 
 public interface PersonService {
-    PersonInfoDto savePerson(SavePersonDto savePersonDto);
+    PersonInfoDto savePerson(SaveAndUpdatePersonDto saveAndUpdatePersonDto);
 
     PersonDetailsDto getPersonById(Long id);
 
