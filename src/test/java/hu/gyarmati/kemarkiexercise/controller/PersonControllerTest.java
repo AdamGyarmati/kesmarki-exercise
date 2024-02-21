@@ -3,6 +3,7 @@ package hu.gyarmati.kemarkiexercise.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import hu.gyarmati.kemarkiexercise.dto.PersonDetailsDto;
 import hu.gyarmati.kemarkiexercise.dto.PersonInfoDto;
+import hu.gyarmati.kemarkiexercise.dto.SaveAndUpdatePersonDto;
 import hu.gyarmati.kemarkiexercise.service.PersonService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -22,8 +23,7 @@ import static org.mockito.BDDMockito.given;
 import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.HttpStatus.OK;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 
 @WebMvcTest(PersonController.class)
 public class PersonControllerTest {
@@ -81,5 +81,23 @@ public class PersonControllerTest {
 
         assertThat(response.getStatus()).isEqualTo(OK.value());
         assertThat(response.getContentAsString()).isEqualTo(objectMapper.writeValueAsString(new PersonDetailsDto[]{johnDoe, janeDoe}));
+    }
+
+    @DisplayName("Test for updatePerson method")
+    @Test
+    public void canUpdatePerson() throws Exception {
+        SaveAndUpdatePersonDto dto = new SaveAndUpdatePersonDto("Jane Doe");
+        PersonInfoDto janeDoe = new PersonInfoDto(1L, "Jane Doe");
+
+        given(personService.updatePerson(1L, dto)).willReturn(janeDoe);
+
+        MockHttpServletResponse response = mvc.perform(
+                put("/api/persons/1")
+                        .contentType(APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(dto))
+        ).andReturn().getResponse();
+
+        assertThat(response.getStatus()).isEqualTo(OK.value());
+        assertThat(response.getContentAsString()).isEqualTo(objectMapper.writeValueAsString(janeDoe));
     }
 }
