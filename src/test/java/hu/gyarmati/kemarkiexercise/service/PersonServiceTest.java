@@ -109,4 +109,18 @@ public class PersonServiceTest {
 
         assertThat(personDetailsDtoList).hasSize(2);
     }
+
+    @DisplayName("Test for updatePerson")
+    @Test
+    public void canUpdatePerson() {
+        SaveAndUpdatePersonDto dto = new SaveAndUpdatePersonDto("Jane Doe");
+        PersonInfoDto expectedPerson = new PersonInfoDto(1L, "Jane Doe");
+
+        given(personRepository.findById(person.getId())).willReturn(Optional.ofNullable(person));
+        given(modelMapper.map(person, PersonInfoDto.class)).willReturn(expectedPerson);
+
+        PersonInfoDto updatedPerson = personServiceImp.updatePerson(person.getId(), dto);
+
+        assertThat(updatedPerson).isEqualTo(expectedPerson);
+    }
 }
