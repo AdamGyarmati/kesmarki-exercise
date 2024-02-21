@@ -23,7 +23,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class PersonServiceTest {
@@ -122,5 +122,15 @@ public class PersonServiceTest {
         PersonInfoDto updatedPerson = personServiceImp.updatePerson(person.getId(), dto);
 
         assertThat(updatedPerson).isEqualTo(expectedPerson);
+    }
+
+    @DisplayName("Test for deletePerson")
+    @Test
+    public void canDeletePerson() {
+        when(personRepository.findById(person.getId())).thenReturn(Optional.ofNullable(person));
+
+        personServiceImp.deletePerson(person.getId());
+
+        verify(personRepository, times(1)).delete(person);
     }
 }
