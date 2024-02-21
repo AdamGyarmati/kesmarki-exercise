@@ -16,6 +16,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
 
 import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -95,5 +96,17 @@ public class PersonServiceTest {
         given(personRepository.findById(anyLong())).willReturn(Optional.empty());
 
         assertThrows(PersonNotFoundByIdException.class, () -> personServiceImp.getPersonById(1L));
+    }
+
+    @DisplayName("Test for getAllPerson")
+    @Test
+    public void canGetAllPerson() {
+        doReturn(personDetailsDto).when(modelMapper).map(person, PersonDetailsDto.class);
+
+        given(personRepository.findAll()).willReturn(List.of(person, new Person(2L, "Jane Doe", Collections.emptyList())));
+
+        List<PersonDetailsDto> personDetailsDtoList = personServiceImp.getAllPerson();
+
+        assertThat(personDetailsDtoList).hasSize(2);
     }
 }
