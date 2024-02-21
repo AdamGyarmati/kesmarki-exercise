@@ -14,5 +14,5 @@ import java.util.List;
 public class AddressDetailsDto {
     private Long id;
     private String addressType;
-    private List<ContactInformationDetailsDto> contactInformationList;
+    private List<ContactInformationInfoDto> contactInformationList;
 }
