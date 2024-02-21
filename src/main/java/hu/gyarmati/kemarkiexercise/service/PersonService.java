@@ -1,5 +1,6 @@
 package hu.gyarmati.kemarkiexercise.service;
 
+import hu.gyarmati.kemarkiexercise.domain.Person;
 import hu.gyarmati.kemarkiexercise.dto.PersonDetailsDto;
 import hu.gyarmati.kemarkiexercise.dto.PersonInfoDto;
 import hu.gyarmati.kemarkiexercise.dto.SaveAndUpdatePersonDto;
@@ -16,4 +17,6 @@ public interface PersonService {
     PersonInfoDto updatePerson(Long id, SaveAndUpdatePersonDto saveAndUpdatePersonDto);
 
     void deletePerson(Long id);
+
+    Person findPersonById(Long id);
 }

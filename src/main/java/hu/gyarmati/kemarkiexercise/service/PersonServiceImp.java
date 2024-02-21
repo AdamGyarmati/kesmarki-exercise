@@ -58,7 +58,8 @@ public class PersonServiceImp implements PersonService {
         personRepository.delete(person);
     }
 
-    private Person findPersonById(Long id) {
+    @Override
+    public Person findPersonById(Long id) {
         return personRepository.findById(id).orElseThrow(() -> new PersonNotFoundByIdException(id));
     }
 }
