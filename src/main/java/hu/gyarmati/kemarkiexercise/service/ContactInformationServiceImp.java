@@ -61,6 +61,11 @@ public class ContactInformationServiceImp implements ContactInformationService {
         return modelMapper.map(contactInformation, ContactInformationInfoDto.class);
     }
 
+    @Override
+    public void deleteContactInformation(Long id) {
+
+    }
+
     private ContactInformation findContactInformationById(Long id) {
         return contactInformationRepository.findById(id).orElseThrow(() -> new ContactInformationNotFoundByIdException(id));
     }

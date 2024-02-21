@@ -14,4 +14,6 @@ public interface ContactInformationService {
     List<ContactInformationInfoDto> getAllContactInformation();
 
     ContactInformationInfoDto updateContactInformation(Long id, SaveAndUpdateContactInformationDto saveAndUpdateContactInformationDto);
+
+    void deleteContactInformation(Long id);
 }

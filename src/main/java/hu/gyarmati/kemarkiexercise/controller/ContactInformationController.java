@@ -10,8 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-import static org.springframework.http.HttpStatus.CREATED;
-import static org.springframework.http.HttpStatus.OK;
+import static org.springframework.http.HttpStatus.*;
 
 @RestController
 @RequestMapping("/api/contact-informations")
@@ -51,5 +50,12 @@ public class ContactInformationController {
         ContactInformationInfoDto contactInformationInfoDto
                 = contactInformationService.updateContactInformation(id, saveAndUpdateContactInformationDto);
         return new ResponseEntity<>(contactInformationInfoDto, OK);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteContactInformation(@PathVariable Long id) {
+        log.info("Http request DELETE /api/contact-informations/{id} with path variable: " + id);
+        contactInformationService.deleteContactInformation(id);
+        return new ResponseEntity<>(NO_CONTENT);
     }
 }
