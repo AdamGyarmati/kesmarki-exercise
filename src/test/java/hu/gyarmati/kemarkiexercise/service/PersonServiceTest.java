@@ -1,6 +1,7 @@
 package hu.gyarmati.kemarkiexercise.service;
 
 import hu.gyarmati.kemarkiexercise.domain.Person;
+import hu.gyarmati.kemarkiexercise.dto.PersonDetailsDto;
 import hu.gyarmati.kemarkiexercise.dto.PersonInfoDto;
 import hu.gyarmati.kemarkiexercise.dto.SavePersonDto;
 import hu.gyarmati.kemarkiexercise.repository.PersonRepository;
@@ -14,6 +15,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
 
 import java.util.Collections;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
@@ -33,6 +35,7 @@ public class PersonServiceTest {
     private Person person;
     private SavePersonDto savePersonDto;
     private PersonInfoDto personInfoDto;
+    private PersonDetailsDto personDetailsDto;
 
     @BeforeEach
     public void setup() {
@@ -50,6 +53,12 @@ public class PersonServiceTest {
                 .id(1L)
                 .name("John Doe")
                 .build();
+
+        personDetailsDto = PersonDetailsDto.builder()
+                .id(1L)
+                .name("John Doe")
+                .addressList(Collections.emptyList())
+                .build();
     }
 
     @DisplayName("Test for savePerson method")
@@ -63,5 +72,17 @@ public class PersonServiceTest {
         PersonInfoDto savedPerson = personServiceImp.savePerson(savePersonDto);
 
         assertThat(savedPerson).isNotNull();
+    }
+
+    @DisplayName("Test for getPersonById method")
+    @Test
+    public void canGetPersonById() {
+        doReturn(personDetailsDto).when(modelMapper).map(person, PersonDetailsDto.class);
+
+        given(personRepository.findById(1L)).willReturn(Optional.ofNullable(person));
+
+        PersonDetailsDto getPersonDetailsDto = personServiceImp.getPersonById(person.getId());
+
+        assertThat(getPersonDetailsDto).isNotNull();
     }
 }
