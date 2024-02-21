@@ -4,7 +4,6 @@ import hu.gyarmati.kemarkiexercise.domain.Address;
 import hu.gyarmati.kemarkiexercise.domain.AddressType;
 import hu.gyarmati.kemarkiexercise.domain.ContactInformation;
 import hu.gyarmati.kemarkiexercise.domain.ContactInformationType;
-import hu.gyarmati.kemarkiexercise.dto.AddressInfoDto;
 import hu.gyarmati.kemarkiexercise.dto.ContactInformationInfoDto;
 import hu.gyarmati.kemarkiexercise.dto.SaveAndUpdateContactInformationDto;
 import hu.gyarmati.kemarkiexercise.repository.ContactInformationRepository;
@@ -34,7 +33,7 @@ public class ContactInformationServiceTest {
     ModelMapper modelMapper;
 
     @InjectMocks
-    private ContactInformationImp contactInformationServiceImp;
+    private ContactInformationServiceImp contactInformationServiceImp;
 
     private ContactInformation contactInformation;
 

@@ -12,13 +12,13 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional
-public class ContactInformationImp implements ContactInformationService {
+public class ContactInformationServiceImp implements ContactInformationService {
     private final ContactInformationRepository contactInformationRepository;
     private final AddressService addressService;
     private final ModelMapper modelMapper;
 
     @Autowired
-    public ContactInformationImp(ContactInformationRepository contactInformationRepository, AddressService addressService, ModelMapper modelMapper) {
+    public ContactInformationServiceImp(ContactInformationRepository contactInformationRepository, AddressService addressService, ModelMapper modelMapper) {
         this.contactInformationRepository = contactInformationRepository;
         this.addressService = addressService;
         this.modelMapper = modelMapper;
