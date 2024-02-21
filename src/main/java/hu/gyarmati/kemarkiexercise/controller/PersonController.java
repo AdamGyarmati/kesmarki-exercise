@@ -12,8 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-import static org.springframework.http.HttpStatus.CREATED;
-import static org.springframework.http.HttpStatus.OK;
+import static org.springframework.http.HttpStatus.*;
 
 @RestController
 @RequestMapping("/api/persons")
@@ -53,5 +52,12 @@ public class PersonController {
         log.info("Http request PUT /api/persons with path variable: " + id + ", and body: " + saveAndUpdatePersonDto.toString());
         PersonInfoDto personInfoDto = personService.updatePerson(id, saveAndUpdatePersonDto);
         return new ResponseEntity<>(personInfoDto, OK);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deletePerson(@PathVariable Long id) {
+        log.info("Http request DELETE /api/persons/{id} with path variable: " + id);
+        personService.deletePerson(id);
+        return new ResponseEntity<>(NO_CONTENT);
     }
 }

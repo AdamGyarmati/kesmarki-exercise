@@ -14,4 +14,6 @@ public interface PersonService {
     List<PersonDetailsDto> getAllPerson();
 
     PersonInfoDto updatePerson(Long id, SaveAndUpdatePersonDto saveAndUpdatePersonDto);
+
+    void deletePerson(Long id);
 }

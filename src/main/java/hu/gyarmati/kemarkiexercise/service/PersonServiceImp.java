@@ -52,6 +52,11 @@ public class PersonServiceImp implements PersonService {
         return modelMapper.map(person, PersonInfoDto.class);
     }
 
+    @Override
+    public void deletePerson(Long id) {
+
+    }
+
     private Person findPersonById(Long id) {
         return personRepository.findById(id).orElseThrow(() -> new PersonNotFoundByIdException(id));
     }
