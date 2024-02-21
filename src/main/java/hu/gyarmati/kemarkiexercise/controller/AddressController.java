@@ -28,6 +28,8 @@ public class AddressController {
 
     @PostMapping
     public ResponseEntity<AddressInfoDto> saveAddress(@RequestBody SaveAndUpdateAddressDto saveAndUpdateAddressDto) {
-        return null;
+        log.info("Http request POST /api/address with body: " + saveAndUpdateAddressDto.toString());
+        AddressInfoDto addressInfoDto = addressService.saveAddress();
+        return new ResponseEntity<>(addressInfoDto, CREATED);
     }
 }
