@@ -12,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @Transactional
 public class ContactInformationServiceImp implements ContactInformationService {
@@ -38,6 +40,11 @@ public class ContactInformationServiceImp implements ContactInformationService {
     public ContactInformationInfoDto getContactInformationById(Long id) {
         ContactInformation contactInformation = findContactInformationById(id);
         return modelMapper.map(contactInformation, ContactInformationInfoDto.class);
+    }
+
+    @Override
+    public List<ContactInformationInfoDto> getAllContactInformation() {
+        return null;
     }
 
     private ContactInformation findContactInformationById(Long id) {
