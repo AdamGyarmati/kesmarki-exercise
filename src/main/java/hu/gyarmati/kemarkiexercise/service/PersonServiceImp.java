@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -39,7 +40,9 @@ public class PersonServiceImp implements PersonService {
 
     @Override
     public List<PersonDetailsDto> getAllPerson() {
-        return null;
+        return personRepository.findAll().stream()
+                .map(person -> modelMapper.map(person, PersonDetailsDto.class))
+                .collect(Collectors.toList());
     }
 
     private Person findPersonById(Long id) {
