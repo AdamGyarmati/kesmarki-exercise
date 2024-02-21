@@ -36,7 +36,7 @@ public class PersonControllerTest {
 
     @DisplayName("Test for savePerson method")
     @Test
-    public void CanSaveANewPerson() throws Exception {
+    public void canSaveANewPerson() throws Exception {
         MockHttpServletResponse response = mvc.perform(
                 post("/api/persons").contentType(APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(new PersonInfoDto(1L, "John Doe")))
