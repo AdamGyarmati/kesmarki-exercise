@@ -66,7 +66,7 @@ public class PersonServiceImp implements PersonService {
     }
 
     @Override
-    public Person checkPersonByAddressTypeAndNumberOfAddressType(AddressType addressType, Long personId) {
+    public boolean checkPersonByAddressTypeAndNumberOfAddressType(AddressType addressType, Long personId) {
         return personRepository.checkPersonByAddressTypeAndNumberOfAddressType(addressType, personId);
     }
 }

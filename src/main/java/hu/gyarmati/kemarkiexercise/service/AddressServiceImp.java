@@ -34,8 +34,8 @@ public class AddressServiceImp implements AddressService {
 
     @Override
     public AddressInfoDto saveAddress(SaveAndUpdateAddressDto saveAndUpdateAddressDto) {
-        Person person = personService.checkPersonByAddressTypeAndNumberOfAddressType(AddressType.valueOf(saveAndUpdateAddressDto.getAddressType()), saveAndUpdateAddressDto.getPersonId());
-        if (person == null) {
+        Person person = personService.findPersonById(saveAndUpdateAddressDto.getPersonId());
+        if (personService.checkPersonByAddressTypeAndNumberOfAddressType(AddressType.valueOf(saveAndUpdateAddressDto.getAddressType()), person.getId())) {
             throw new PersonAlreadyHasTwoAddressOrAddressTypeAlreadyInUseException();
         }
         Address address = modelMapper.map(saveAndUpdateAddressDto, Address.class);

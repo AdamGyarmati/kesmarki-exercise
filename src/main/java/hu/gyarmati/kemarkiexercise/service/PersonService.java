@@ -20,6 +20,6 @@ public interface PersonService {
     void deletePerson(Long id);
 
     Person findPersonById(Long id);
-    Person checkPersonByAddressTypeAndNumberOfAddressType(AddressType addressType, Long personId);
+    boolean checkPersonByAddressTypeAndNumberOfAddressType(AddressType addressType, Long personId);
 
     }

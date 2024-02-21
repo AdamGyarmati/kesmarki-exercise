@@ -8,8 +8,10 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface PersonRepository extends JpaRepository<Person, Long> {
-    @Query("select p from Person p where p.id=:personId " +
-            "and size(p.addressList) < 2" +
-            "and 0 = (select count(a) from Address a where a.addressType=:addressType and a.person.id=:personId)")
-    Person checkPersonByAddressTypeAndNumberOfAddressType(AddressType addressType, Long personId);
+    @Query("SELECT CASE WHEN (COUNT(p) > 0) THEN false ELSE true END " +
+            "FROM Person p " +
+            "WHERE p.id = :personId " +
+            "AND SIZE(p.addressList) < 2 " +
+            "AND 0 = (SELECT COUNT(a) FROM Address a WHERE a.addressType = :addressType AND a.person.id = :personId)")
+    boolean checkPersonByAddressTypeAndNumberOfAddressType(AddressType addressType, Long personId);
 }
