@@ -6,22 +6,25 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 
 @Entity
-@Table(name = "person")
-public class Person {
+@Table(name = "contact_information")
+public class ContactInformation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String name;
+    @Column(name = "contact_information")
+    private String contactInfo;
 
-    @OneToMany(mappedBy = "person")
-    private List<Address> addressList;
+    @Enumerated(EnumType.STRING)
+    private ContactInformationType contactInformationType;
+
+    @ManyToOne
+    @JoinColumn(name = "address_id")
+    private Address address;
 }
