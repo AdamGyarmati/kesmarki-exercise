@@ -4,6 +4,8 @@ import hu.gyarmati.kemarkiexercise.domain.Address;
 import hu.gyarmati.kemarkiexercise.domain.ContactInformation;
 import hu.gyarmati.kemarkiexercise.dto.ContactInformationInfoDto;
 import hu.gyarmati.kemarkiexercise.dto.SaveAndUpdateContactInformationDto;
+import hu.gyarmati.kemarkiexercise.exceptionhandling.AddressNotFoundByIdException;
+import hu.gyarmati.kemarkiexercise.exceptionhandling.ContactInformationNotFoundByIdException;
 import hu.gyarmati.kemarkiexercise.repository.ContactInformationRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +36,11 @@ public class ContactInformationServiceImp implements ContactInformationService {
 
     @Override
     public ContactInformationInfoDto getContactInformationById(Long id) {
+        ContactInformation contactInformation = findContactInformationById(id);
         return null;
+    }
+
+    private ContactInformation findContactInformationById(Long id) {
+        return contactInformationRepository.findById(id).orElseThrow(() -> new ContactInformationNotFoundByIdException(id));
     }
 }
