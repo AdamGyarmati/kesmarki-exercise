@@ -30,6 +30,7 @@ public class PersonServiceImp implements PersonService {
 
     @Override
     public PersonDetailsDto getPersonById(Long id) {
-        return null;
+        Person person = personRepository.findById(id).orElseThrow(() -> new RuntimeException());
+        return modelMapper.map(person, PersonDetailsDto.class);
     }
 }
